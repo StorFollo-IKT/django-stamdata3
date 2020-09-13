@@ -17,7 +17,7 @@ matrix:
         provider: pypi
         user: __token__
         password:
-          secure: GlaT0z2OeHfffkP0fRShkirTS9RqJDCrFplSRdHSsYTDAwyKRLlaFecIPXqLcUSbRMkSHb8iPU35RNIMQ1jygS+kZtF3teMWYBhpfD7SYAFgPB6uQI1E4JH7t73zJac08ZipwjcJRfq00kbVVHseJMFYcHcdXrcsPUe8zPrNTYpUD1FLX8GlZRePi5T0ubBHGmx88he2UTN4QAfftX8VqBFU+cLRH3dpfNBYtI9GdDCMv1dv0CdmXQdTxYqHSaYOru8dwilsyqf2+ZzDrqrnVLADv3i3UqwnlnJn1MC9OjZknx2ireIwXIwgO34NlwH/RkTjRstBVrpH71Um/yOzhZ85FrgI2TN1rEFo1f+IslzgLEo6Fw2O9Q6m+DafEAjDWY87FHSxg3iGe5ihqlXPRcHpIkIcPYdi5avb3MIeirmZxHvcLlaQQKoq8kTNBQfnx/q1NNfmXS8j3mQZtkezRpeENxKjhHBK3Iv0OfUn9wGd0NE7Y1XqYH4LIAU3U5svzONkSsTrjrjx8wFiZT9vqeVI3sYTuUakJqG+T92iLrLm6oOiuGw2Yua6jgYOssywp5Ge7sQKTwHrBCQvp8eqc6UOgzSoqf50N2OUkXJ9Gy3cBEYh7ikKuMhzvBOznz9Hm8yXyuubEvoFs+pvtMthbZsYMq42nNcJlSOaKOY/GAk=
+          secure: lsZkMHxTGaOFdL1+jI3CIiaK9UVdbeIr8JgweKOaAVPtFwDYkSwz7HjTGtMjO+obuG3jHuFyfz4yu4OFrh579pxZluwy82qMPjqfo8uycDHs9CHhaWD/J6dx11dBRX0VRPXkM7uR2o/sGuHH3829/iw20udUlzjEJ3lTQoAtPb6uqBNIC7lLItUIey1p9dGZLJD3+NoiKXScvipPQiwYlCPkUxdtv5li$
         on:
           tags: true
 
