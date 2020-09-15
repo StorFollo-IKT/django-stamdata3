@@ -33,6 +33,9 @@ class Resource(models.Model):
                 employees.append(employment.resource)
         return employees
 
+    def main_position(self):
+        return self.employments.filter(mainPosition=True).first()
+
     def __str__(self):
         return '%s %s' % (self.firstName, self.lastName)
 
