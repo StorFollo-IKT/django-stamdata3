@@ -1,6 +1,6 @@
 from django.contrib import admin
 
-from employee_info.models import Resource, Organisation, Employment, Company
+from employee_info.models import Company, CostCenter, Employment, Organisation, Resource
 
 
 @admin.register(Company)
@@ -25,3 +25,9 @@ class OrganisationAdmin(admin.ModelAdmin):
 @admin.register(Employment)
 class EmploymentAdmin(admin.ModelAdmin):
     list_display = ['resource', 'mainPosition', 'workPlace', 'costCenter']
+
+
+@admin.register(CostCenter)
+class DepartmentAdmin(admin.ModelAdmin):
+    list_display = ['description', 'value', 'company']
+    list_filter = ['company']
