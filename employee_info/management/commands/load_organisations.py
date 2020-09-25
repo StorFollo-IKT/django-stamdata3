@@ -1,6 +1,7 @@
 from datetime import datetime
 
 from django.core.management.base import BaseCommand
+from employee_info.models import Company
 
 from employee_info.load_data.LoadOrganisations import LoadOrganisations
 
@@ -12,8 +13,14 @@ class Command(BaseCommand):
         parser.add_argument('company', nargs='+', type=str)
 
     def handle(self, *args, **options):
-        customer = options['company'][0]
-        file = '/home/datagrunnlag/Stamdata3_teis_%s.xml' % customer
+        company = options['company'][0]
+        if company == 'all':
+            companies = Company.objects.all()
+        else:
+            companies = [company]
 
-        load = LoadOrganisations(file, customer)
-        load.load()
+        for company_code in companies:
+            file = '/home/datagrunnlag/Stamdata3_teis_%s.xml' % company_code
+
+            load = LoadOrganisations(file, company_code)
+            load.load()
