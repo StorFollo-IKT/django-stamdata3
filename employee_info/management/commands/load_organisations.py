@@ -16,6 +16,7 @@ class Command(BaseCommand):
         company = options['company'][0]
         if company == 'all':
             companies = Company.objects.all()
+            companies = list(companies.values_list('companyCode', flat=True))
         else:
             companies = [company]
 

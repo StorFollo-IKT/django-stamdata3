@@ -16,11 +16,12 @@ class Command(BaseCommand):
         company = options['company'][0]
         if company == 'all':
             companies = Company.objects.all()
+            companies = list(companies.values_list('companyCode', flat=True))
         else:
             companies = [company]
 
         for company in companies:
-            file = '/home/datagrunnlag/Stamdata3_teis_%s.xml' % company.companyCode
+            file = '/home/datagrunnlag/Stamdata3_teis_%s.xml' % company
 
-            load = LoadResources(file, company.companyCode)
+            load = LoadResources(file, company)
             load.load()
