@@ -1,4 +1,5 @@
 {% extends 'employee_info/base.html' %}
+{% load static %}
 
 {% block body %}
     <table>
@@ -49,6 +50,10 @@
                 <th title="employmentType">Ansettelsestype</th>
                 <td>{{ employment.employmentType }} {{ employment.employmentTypeDescription }}</td>
             </tr>
+        <tr>
+            <th>Primært stillingsforhold</th>
+            <td>{% include 'employee_info/boolean.html' with value=employment.mainPosition %}</td>
+        </tr>
             <tr>
                 <th title="postCode">Stillingskode</th>
                 <td>{{ employment.postCode }} {{ employment.postCodeDescription }}</td>
