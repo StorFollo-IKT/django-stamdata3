@@ -17,8 +17,12 @@ def resource(request):
     company = request.GET.get('company')
 
     if employee_num:
-        resource_obj = Resource.objects.get(company__companyCode=company, resourceId=employee_num)
-        return render(request, 'employee_info/resource.html', {'resource': resource_obj, 'title': 'Ansatt'})
+        resource_obj = Resource.objects.get(company__companyCode=company,
+                                            resourceId=employee_num)
+        return render(request, 'employee_info/resource.html',
+                      {'resource': resource_obj,
+                       'title': 'Ansatt',
+                       'companies': Company.objects.all()})
     else:
         return redirect('employee_info_browser:index')
 
