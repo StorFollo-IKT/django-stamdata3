@@ -80,5 +80,7 @@
         </table>
         <br/>
     {% endfor %}
+    <h3>Vis annen ansatt</h3>
+    {% include 'employee_info/resource_form.html' with company_select=resource.company.companyCode %}
 
 {% endblock %}

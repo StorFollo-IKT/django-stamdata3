@@ -2,23 +2,7 @@
 
 {% block body %}
     <h3>Ansatt</h3>
-    <form action="{% url 'employee_info_browser:resource' %}">
-        <label for="company">Firma</label>
-        <select id="company" name="company">
-            {% for company in companies %}
-                <option value="{{ company.companyCode }}">{{ company.companyCode }}</option>
-            {% endfor %}
-
-        </select>
-        <br/>
-
-        <label>
-            Ressursnummer
-            <input name="employee" type="text">
-        </label>
-        <br/>
-        <input type="submit" value="Vis ansatt">
-    </form>
+    {% include 'employee_info/resource_form.html' %}
 
     <h3 title="ORGANIZATIONAL_UNIT">Organisasjonsenhet</h3>
     <ul>
