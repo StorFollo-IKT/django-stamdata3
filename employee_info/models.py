@@ -33,8 +33,18 @@ class Resource(models.Model):
                 employees.append(employment.resource)
         return employees
 
-    def main_position(self):
-        return self.employments.filter(mainPosition=True).first()
+    def main_position(self, assume: bool = False):
+        """
+        Get the resources main position
+        :type assume: bool Assume that the main position is the one with the
+        highest percentage if main position is not specified
+        :rtype: Employment
+        """
+        employments = self.employments.filter(mainPosition=True).first()
+        if not employments:
+            if assume:
+                employments = self.employments.order_by('percentage')
+                return employments.last()
 
     def __str__(self):
         return '%s %s' % (self.firstName, self.lastName)
