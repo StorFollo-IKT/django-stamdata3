@@ -45,6 +45,8 @@ class Resource(models.Model):
             if assume:
                 employments = self.employments.order_by('percentage')
                 return employments.last()
+        else:
+            return employments
 
     def __str__(self):
         return '%s %s' % (self.firstName, self.lastName)
