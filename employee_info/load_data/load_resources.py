@@ -1,3 +1,5 @@
+from django.db import IntegrityError
+from django.db.models import ProtectedError
 from stamdata3.exceptions import InvalidRelation
 from .load_data import LoadData
 from ..models import Resource, Employment, Function, CostCenter, WorkPlace, Organisation
@@ -6,6 +8,7 @@ from stamdata3.Resource import Resource as Resource_stamdata
 
 class LoadResources(LoadData):
     def load(self):
+        orphans = Resource.objects.filter(company__companyCode=self.company_code)
         resources = self.stamdata.resources()
         for resource in resources:
             if resource.company_code != self.company_code:
@@ -20,8 +23,16 @@ class LoadResources(LoadData):
             resource_obj.status = resource.status
 
             resource_obj.save()
+            orphans = orphans.exclude(id=resource_obj.id)
 
             self.load_employments(resource, resource_obj)
+        for orphan in orphans:
+            try:
+                orphan.delete()
+            except ProtectedError:
+                print('Protected relations: %s' % orphan)
+            except IntegrityError as e:
+                print('Error deleting %s: %s' % (orphan, e))
 
     def load_employments(self, resource: Resource_stamdata, resource_obj: Resource):
         for employment in resource.employments:
