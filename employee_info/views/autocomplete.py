@@ -6,8 +6,7 @@ from typing import Type
 from employee_info.models import CostCenter, Function, WorkPlace
 
 
-@permission_required('employee_info.view_employment')
-def relation_autocomplete(model: Type[Model], company_code, search_value):
+def __relation_autocomplete(model: Type[Model], company_code, search_value):
     output = []
     query_set = model.objects.filter(company__companyCode=company_code, value__startswith=search_value)
 
@@ -23,7 +22,7 @@ def __autocomplete(request, model: Type[Model], limit=1):
         return HttpResponseBadRequest('Company must be specified')
     search = request.GET.get('term')
     if search and len(search) >= limit:
-        values = relation_autocomplete(model, company_code, search)
+        values = __relation_autocomplete(model, company_code, search)
         return JsonResponse(values, safe=False)
     else:
         return HttpResponseBadRequest('At least %d characters must be provided' % limit)
