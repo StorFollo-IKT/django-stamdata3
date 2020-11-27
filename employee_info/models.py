@@ -103,9 +103,9 @@ class Organisation(models.Model):
     company = models.ForeignKey(Company, on_delete=models.PROTECT, verbose_name='firma', related_name='organisation')
     name = models.CharField('navn', max_length=200)
     orgId = models.CharField('nummer', max_length=6)
-    parent = models.ForeignKey('self', on_delete=models.PROTECT, verbose_name='overordnet', related_name='children',
+    parent = models.ForeignKey('self', on_delete=models.SET_NULL, verbose_name='overordnet', related_name='children',
                                null=True)
-    manager = models.ForeignKey(Resource, on_delete=models.PROTECT, verbose_name='leder', related_name='manages',
+    manager = models.ForeignKey(Resource, on_delete=models.SET_NULL, verbose_name='leder', related_name='manages',
                                 null=True)
     status = models.CharField(max_length=1)
 
