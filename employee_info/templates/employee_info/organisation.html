@@ -5,7 +5,7 @@
         <tr>
             <th>Overordnet niv&aring;</th>
             <td>
-                <a href="{% url 'employee_info_browser:organisation' %}?company={{ organisation.company }}&amp;value={{ organisation.orgId }}">{{ organisation.parent }}</a>
+                <a href="{% url 'employee_info_browser:organisation' %}?company={{ organisation.company }}&amp;value={{ organisation.parent.orgId }}">{{ organisation.parent }}</a>
             </td>
         </tr>
         <tr>
