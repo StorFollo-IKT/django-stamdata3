@@ -21,7 +21,7 @@ class Command(BaseCommand):
             companies = [company]
 
         for company in companies:
-            file = '/home/datagrunnlag/Stamdata3_teis_%s.xml' % company
+            file = '/home/datagrunnlag/Stamdata3_FSI_%s.xml' % company
 
             load = LoadResources(file, company)
             load.load()
