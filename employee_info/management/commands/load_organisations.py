@@ -21,7 +21,7 @@ class Command(BaseCommand):
             companies = [company]
 
         for company_code in companies:
-            file = '/home/datagrunnlag/Stamdata3_teis_%s.xml' % company_code
+            file = '/home/datagrunnlag/Stamdata3_FSI_%s.xml' % company_code
 
             load = LoadOrganisations(file, company_code)
             load.load()
