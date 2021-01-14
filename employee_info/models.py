@@ -137,6 +137,7 @@ class Employment(models.Model):
     function = models.ForeignKey(Function, on_delete=models.PROTECT, null=True, verbose_name='funksjon', related_name='employments')
     organisation = models.ForeignKey(Organisation, on_delete=models.PROTECT, null=True,
                                      verbose_name='organisasjonsenhet', related_name='employments')
+    sequenceRef = models.IntegerField()
 
     def __str__(self):
         return '%s: %s' % (self.organisation, self.resource)

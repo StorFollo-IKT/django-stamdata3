@@ -35,11 +35,17 @@ class LoadResources(LoadData):
                 print('Error deleting %s: %s' % (orphan, e))
 
     def load_employments(self, resource: Resource_stamdata, resource_obj: Resource):
+        """
+        :param resource: stamdata3 resource object
+        :param resource_obj: django resource object
+        """
+
+        orphans = resource_obj.employments.all()
         for employment in resource.employments:
             try:
-                emp = Employment.objects.get(resource=resource_obj, id=employment.sequence_ref)
+                emp = Employment.objects.get(resource=resource_obj, sequenceRef=employment.sequence_ref)
             except Employment.DoesNotExist:
-                emp = Employment(resource=resource_obj, id=employment.sequence_ref)
+                emp = Employment(resource=resource_obj, sequenceRef=employment.sequence_ref)
 
             emp.employmentType = employment.type
             emp.employmentTypeDescription = employment.type_description
@@ -73,6 +79,9 @@ class LoadResources(LoadData):
             emp.dateFrom = employment.date_from
             emp.dateTo = employment.date_to
             emp.save()
+            orphans = orphans.exclude(id=emp.id)
+
+        orphans.delete()
 
     def load_function(self, employment):
         function = employment.relation('FUNCTION')
