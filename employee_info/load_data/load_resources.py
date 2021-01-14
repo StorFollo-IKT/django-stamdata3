@@ -35,6 +35,11 @@ class LoadResources(LoadData):
                 print('Error deleting %s: %s' % (orphan, e))
 
     def load_employments(self, resource: Resource_stamdata, resource_obj: Resource):
+        """
+        :param resource: stamdata3 resource object
+        :param resource_obj: django resource object
+        """
+
         for employment in resource.employments:
             try:
                 emp = Employment.objects.get(resource=resource_obj, sequenceRef=employment.sequence_ref)
