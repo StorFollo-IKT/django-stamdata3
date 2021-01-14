@@ -37,9 +37,9 @@ class LoadResources(LoadData):
     def load_employments(self, resource: Resource_stamdata, resource_obj: Resource):
         for employment in resource.employments:
             try:
-                emp = Employment.objects.get(resource=resource_obj, id=employment.sequence_ref)
+                emp = Employment.objects.get(resource=resource_obj, sequenceRef=employment.sequence_ref)
             except Employment.DoesNotExist:
-                emp = Employment(resource=resource_obj, id=employment.sequence_ref)
+                emp = Employment(resource=resource_obj, sequenceRef=employment.sequence_ref)
 
             emp.employmentType = employment.type
             emp.employmentTypeDescription = employment.type_description
