@@ -1,7 +1,7 @@
 from django.contrib.auth.decorators import permission_required
 from django.shortcuts import render, redirect
 
-from employee_info.models import Resource, Company, Organisation
+from employee_info.models import Resource, Company, Organisation, CostCenter
 
 
 def index(request):
@@ -17,8 +17,16 @@ def resource(request):
     company = request.GET.get('company')
 
     if employee_num:
-        resource_obj = Resource.objects.get(company__companyCode=company,
-                                            resourceId=employee_num)
+        try:
+            resource_obj = Resource.objects.get(company__companyCode=company,
+                                                resourceId=employee_num)
+        except Resource.DoesNotExist:
+            return render(request, 'employee_info/index.html',
+                          {'companies': Company.objects.all(),
+                           'error_resource':
+                               'Ingen ansatt i %s med ressursnummer %s' %
+                               (company, employee_num)})
+
         return render(request, 'employee_info/resource.html',
                       {'resource': resource_obj,
                        'title': 'Ansatt',
@@ -40,6 +48,13 @@ def organisation(request):
                       {'title': 'Velg organisasjonsenhet',
                        'organisations': Organisation.objects.filter(company__companyCode=company),
                        'company': company})
-
-    organisation_obj = Organisation.objects.get(company__companyCode=company, orgId=organisation_num)
-    return render(request, 'employee_info/organisation.html', {'organisation': organisation_obj, 'company': company})
+    try:
+        organisation_obj = Organisation.objects.get(company__companyCode=company, orgId=organisation_num)
+        return render(request, 'employee_info/organisation.html',
+                      {'organisation': organisation_obj, 'company': company})
+    except Organisation.DoesNotExist:
+        return render(request, 'employee_info/index.html',
+                      {'companies': Company.objects.all(),
+                       'error_org':
+                           'Ingen organisasjonsenhet i %s med nummer %s' %
+                           (company, organisation_num)})
