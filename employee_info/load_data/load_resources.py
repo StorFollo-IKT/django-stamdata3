@@ -57,7 +57,11 @@ class LoadResources(LoadData):
             emp.postCodeDescription = employment.post_code_description
 
             try:
-                emp.function = self.load_function(employment)
+                function = employment.relation('FUNCTION')
+                try:
+                    emp.function = Function.objects.get(value=function.value, company=None)
+                except Function.DoesNotExist:
+                    print('Function %s does not exist (resource %s in company %s)' % (function.value, resource.resource_id, resource.company_code))
             except InvalidRelation as e:
                 print(e)
 
@@ -82,12 +86,6 @@ class LoadResources(LoadData):
             orphans = orphans.exclude(id=emp.id)
 
         orphans.delete()
-
-    def load_function(self, employment):
-        function = employment.relation('FUNCTION')
-        function, created = Function.objects.get_or_create(company=self.company, value=function.value,
-                                                           defaults={'description': function.description})
-        return function
 
     def load_cost_center(self, employment):
         relation = employment.relation('COST_CENTER')

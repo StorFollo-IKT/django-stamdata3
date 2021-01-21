@@ -86,7 +86,8 @@ class WorkPlace(models.Model):
 
 
 class Function(models.Model):
-    company = models.ForeignKey(Company, on_delete=models.PROTECT, verbose_name='firma', related_name='functions')
+    company = models.ForeignKey(Company, on_delete=models.PROTECT, verbose_name='firma', related_name='functions',
+                                null=True, blank=True)
     value = models.CharField('verdi', max_length=4)
     description = models.CharField('beskrivelse', max_length=200, null=True, blank=True)
 

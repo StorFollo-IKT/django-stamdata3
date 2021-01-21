@@ -18,7 +18,7 @@ def __relation_autocomplete(model: Type[Model], company_code, search_value):
 
 def __autocomplete(request, model: Type[Model], limit=1):
     company_code = request.GET.get('company')
-    if not company_code:
+    if not company_code and model != Function:
         return HttpResponseBadRequest('Company must be specified')
     search = request.GET.get('term')
     if search and len(search) >= limit:
