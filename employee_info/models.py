@@ -92,7 +92,7 @@ class Function(models.Model):
     description = models.CharField('beskrivelse', max_length=200, null=True, blank=True)
 
     def __str__(self):
-        return '%s %s (%s)' % (self.value, self.description, self.company.companyCode)
+        return '%s %s' % (self.value, self.description)
 
     class Meta:
         verbose_name = 'funksjon'
