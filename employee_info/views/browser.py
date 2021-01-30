@@ -55,12 +55,18 @@ def organisation(request):
                                                                      'companies': Company.objects.all()
                                                                      })
     elif not organisation_num:
+        organisation_obj = Organisation.objects.filter(company__companyCode=company)
+        organisation_obj = organisation_obj.select_related('manager', 'parent')
+
         return render(request, 'employee_info/select_organisation.html',
                       {'title': 'Velg organisasjonsenhet',
-                       'organisations': Organisation.objects.filter(company__companyCode=company),
+                       'organisations': organisation_obj,
                        'company': company})
     try:
-        organisation_obj = Organisation.objects.get(company__companyCode=company, orgId=organisation_num)
+        organisation_obj = Organisation.objects.select_related('manager', 'parent'). \
+            prefetch_related('employments__resource'). \
+            get(company__companyCode=company, orgId=organisation_num)
+
         return render(request, 'employee_info/organisation.html',
                       {'organisation': organisation_obj, 'company': company})
     except Organisation.DoesNotExist:
