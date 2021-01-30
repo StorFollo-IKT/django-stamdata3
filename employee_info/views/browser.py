@@ -1,4 +1,5 @@
 from django.contrib.auth.decorators import permission_required
+from django.http import Http404
 from django.shortcuts import render, redirect
 
 from employee_info.models import Resource, Company, Organisation, CostCenter
@@ -15,8 +16,15 @@ def resource(request):
         employee_num = request.GET.get('value')
 
     company = request.GET.get('company')
+    resource_id = request.GET.get('id')
 
-    if employee_num:
+    if resource_id:
+        try:
+            resource_obj = Resource.objects.get(id=resource_id)
+        except Resource.DoesNotExist:
+            raise Http404('Ugyldig id')
+
+    elif employee_num and company:
         try:
             resource_obj = Resource.objects.get(company__companyCode=company,
                                                 resourceId=employee_num)
@@ -26,13 +34,13 @@ def resource(request):
                            'error_resource':
                                'Ingen ansatt i %s med ressursnummer %s' %
                                (company, employee_num)})
-
-        return render(request, 'employee_info/resource.html',
-                      {'resource': resource_obj,
-                       'title': 'Ansatt',
-                       'companies': Company.objects.all()})
     else:
         return redirect('employee_info_browser:index')
+
+    return render(request, 'employee_info/resource.html',
+                  {'resource': resource_obj,
+                   'title': 'Ansatt',
+                   'companies': Company.objects.all()})
 
 
 @permission_required('employee_info.view_organisation')
