@@ -1,5 +1,5 @@
 <form action="{% url 'employee_info_browser:resource' %}">
-    <label for="company">Firma</label>
+    <label for="company">Firma</label><br />
     <select id="company" name="company">
         {% for company in companies %}
             {% if company.companyCode == company_select %}
@@ -12,10 +12,9 @@
     <br/>
 
     <label>
-        Ressursnummer
-        <input name="employee" type="text">
+        Ressursnummer<br />
+        <input name="employee" type="text" size="6">
     </label>
-    <br/>
-    <input type="submit" value="Vis ansatt">
+    <input type="submit" value="Vis">
 </form>
 <span class="error">{{ error }}</span>
