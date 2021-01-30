@@ -4,9 +4,12 @@ from django.shortcuts import render, redirect
 
 from employee_info.models import Resource, Company, Organisation, CostCenter
 
+title = 'Vis informasjon om ansatte'
+
 
 def index(request):
-    return render(request, 'employee_info/index.html', {'companies': Company.objects.all()})
+    return render(request, 'employee_info/index.html', {'companies': Company.objects.all(),
+                                                        'title': title})
 
 
 @permission_required('employee_info.view_employment')
@@ -62,7 +65,8 @@ def organisation(request):
                       {'organisation': organisation_obj, 'company': company})
     except Organisation.DoesNotExist:
         return render(request, 'employee_info/index.html',
-                      {'companies': Company.objects.all(),
+                      {'title': title,
+                       'companies': Company.objects.all(),
                        'error_org':
                            'Ingen organisasjonsenhet i %s med nummer %s' %
                            (company, organisation_num)})
