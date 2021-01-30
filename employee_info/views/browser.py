@@ -76,3 +76,35 @@ def organisation(request):
                        'error_org':
                            'Ingen organisasjonsenhet i %s med nummer %s' %
                            (company, organisation_num)})
+
+
+@permission_required('employee_info.view_cost_center')
+def cost_center(request):
+    company = request.GET.get('company')
+    value = request.GET.get('value')
+    if not company:
+        return redirect('employee_info_browser:index')
+    if not value:
+        organisation_obj = CostCenter.objects.filter(company__companyCode=company)
+        organisation_obj = organisation_obj.order_by('value')
+
+        return render(request, 'employee_info/select_cost_center.html',
+                      {'title': 'Velg ansvar i %s' % company,
+                       'organisations': organisation_obj,
+                       'company': company})
+
+    try:
+        cost_center_obj = CostCenter.objects.select_related('company') \
+            .prefetch_related('employments__resource') \
+            .get(company__companyCode=company, value=value)
+    except CostCenter.DoesNotExist:
+        return render(request, 'employee_info/index.html',
+                      {'companies': Company.objects.all(),
+                       'error_cost_center':
+                           'Ingen ansvar i %s med nummer %s' %
+                           (company, value)})
+
+    return render(request, 'employee_info/cost_center.html',
+                  {'relation': cost_center_obj,
+                   'title': 'Ansatte på ansvar %s i %s' % (value, company)
+                   })

@@ -28,4 +28,28 @@
     </form>
     <span class="error">{{ error_org }}</span>
 
+    <h2 title="COST_CENTER">Ansvar</h2>
+    <form action="{% url 'employee_info_browser:cost_center' %}">
+        <label>Firma<br />
+            <select name="company">
+                {% for company in companies %}
+                    <option value="{{ company.companyCode }}">{{ company.companyCode }}</option>
+                {% endfor %}
+            </select>
+        </label>
+        <br/>
+        <label>
+            Nummer<br/>
+            <input name="value" type="text" size="6">
+        </label>
+        <input type="submit" value="Vis">
+    </form>
+    <span class="error">{{ error_cost_center }}</span>
+    <ul>
+        {% for company in companies %}
+            <li><a href="{% url 'employee_info_browser:cost_center' %}?company={{ company }}">Vis alle
+                ansvar i {{ company }}</a></li>
+        {% endfor %}
+    </ul>
+
 {% endblock %}
