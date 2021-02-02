@@ -78,7 +78,7 @@ def organisation(request):
                            (company, organisation_num)})
 
 
-@permission_required('employee_info.view_cost_center')
+@permission_required('employee_info.view_costcenter')
 def cost_center(request):
     company = request.GET.get('company')
     value = request.GET.get('value')
