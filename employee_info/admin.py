@@ -7,7 +7,7 @@ from employee_info.models import Company, CostCenter, Employment, Organisation, 
 
 @admin.register(Company)
 class CompanyAdmin(admin.ModelAdmin):
-    list_display = ['companyCode']
+    list_display = ['companyCode', 'name']
 
 
 @admin.register(Resource)

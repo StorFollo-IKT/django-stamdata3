@@ -3,9 +3,10 @@ from django.db import models
 
 class Company(models.Model):
     companyCode = models.CharField('firma', max_length=2)
+    name = models.CharField('navn', max_length=50, blank=True, null=True)
 
     def __str__(self):
-        return self.companyCode
+        return self.name or self.companyCode
 
     class Meta:
         verbose_name = 'firma'
