@@ -43,7 +43,7 @@
             <tr>
                 <th title="ORGANIZATIONAL_UNIT">Organisasjonsenhet</th>
                 <td>
-                    <a href="{% url 'employee_info_browser:organisation' %}?company={{ resource.company }}&amp;value={{ employment.organisation.orgId }}">{{ employment.organisation|default:"" }}</a>
+                    <a href="{% url 'employee_info_browser:organisation' %}?company={{ resource.company.companyCode }}&amp;value={{ employment.organisation.orgId }}">{{ employment.organisation|default:"" }}</a>
                 </td>
             </tr>
             <tr>

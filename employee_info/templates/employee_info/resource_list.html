@@ -17,7 +17,7 @@
     {% for employment in relation.employments.all %}
         <tr>
             <td>
-                <a href="{% url 'employee_info_browser:resource' %}?company={{ relation.company }}&amp;value={{ employment.resource.resourceId }}">{{ employment.resource }}</a>
+                <a href="{% url 'employee_info_browser:resource' %}?company={{ relation.company.companyCode }}&amp;value={{ employment.resource.resourceId }}">{{ employment.resource }}</a>
             </td>
             <td>{{ employment.resource.resourceId }}</td>
             <td>{{ employment.employmentTypeDescription }}</td>

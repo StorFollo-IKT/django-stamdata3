@@ -9,7 +9,7 @@
         <label>Firma<br/>
             <select name="company">
                 {% for company in companies %}
-                    <option value="{{ company.companyCode }}">{{ company.companyCode }}</option>
+                    <option value="{{ company.companyCode }}">{{ company }}</option>
                 {% endfor %}
             </select>
         </label>
@@ -22,7 +22,7 @@
     <span class="error">{{ error_org }}</span>
     <ul>
         {% for company in companies %}
-            <li><a href="{% url 'employee_info_browser:organisation' %}?company={{ company }}">Vis alle
+            <li><a href="{% url 'employee_info_browser:organisation' %}?company={{ company.companyCode }}">Vis alle
                 organisasjonsenheter i {{ company }}</a></li>
         {% endfor %}
     </ul>
@@ -32,7 +32,7 @@
         <label>Firma<br />
             <select name="company">
                 {% for company in companies %}
-                    <option value="{{ company.companyCode }}">{{ company.companyCode }}</option>
+                    <option value="{{ company.companyCode }}">{{ company }}</option>
                 {% endfor %}
             </select>
         </label>
@@ -46,7 +46,7 @@
     <span class="error">{{ error_cost_center }}</span>
     <ul>
         {% for company in companies %}
-            <li><a href="{% url 'employee_info_browser:cost_center' %}?company={{ company }}">Vis alle
+            <li><a href="{% url 'employee_info_browser:cost_center' %}?company={{ company.companyCode }}">Vis alle
                 ansvar i {{ company }}</a></li>
         {% endfor %}
     </ul>
