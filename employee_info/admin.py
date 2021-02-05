@@ -14,7 +14,7 @@ class CompanyAdmin(admin.ModelAdmin):
 class ResourceAdmin(admin.ModelAdmin):
     list_display = ['company', 'resourceId', 'firstName', 'lastName']
     list_filter = ['company']
-    readonly_fields = ['manages_list', 'subordinates']
+    readonly_fields = ['mainPosition', 'company', 'manages_list', 'subordinates']
 
 
 @admin.register(Organisation)
