@@ -21,16 +21,18 @@ def resource(request):
     company = request.GET.get('company')
     resource_id = request.GET.get('id')
 
+    resource_obj = Resource.objects.prefetch_related('employments', 'employments__costCenter', 'employments__function', 'employments__organisation')
+
     if resource_id:
         try:
-            resource_obj = Resource.objects.get(id=resource_id)
+            resource_obj = resource_obj.get(id=resource_id)
         except Resource.DoesNotExist:
             raise Http404('Ugyldig id')
 
     elif employee_num and company:
         try:
-            resource_obj = Resource.objects.get(company__companyCode=company,
-                                                resourceId=employee_num)
+            resource_obj = resource_obj.get(company__companyCode=company,
+                                            resourceId=employee_num)
         except Resource.DoesNotExist:
             return render(request, 'employee_info/index.html',
                           {'companies': Company.objects.all(),

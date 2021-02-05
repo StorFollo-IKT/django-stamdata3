@@ -34,11 +34,11 @@
         <table>
             <tr>
                 <th>Ansvar</th>
-                <td>{{ employment.costCenter|default:"" }}</td>
+                <td>{{ employment.costCenter.value }} {{ employment.costCenter.description }}</td>
             </tr>
             <tr>
                 <th>Funksjon</th>
-                <td>{{ employment.function|default:"" }}</td>
+                <td>{{ employment.function.value }} {{ employment.function.description }}</td>
             </tr>
             <tr>
                 <th title="ORGANIZATIONAL_UNIT">Organisasjonsenhet</th>
