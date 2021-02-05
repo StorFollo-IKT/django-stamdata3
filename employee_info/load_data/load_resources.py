@@ -82,6 +82,9 @@ class LoadResources(LoadData):
 
             emp.dateFrom = employment.date_from
             emp.dateTo = employment.date_to
+            if not emp.active():
+                continue
+
             emp.save()
             orphans = orphans.exclude(id=emp.id)
 
