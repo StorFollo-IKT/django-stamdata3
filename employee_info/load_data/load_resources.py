@@ -86,6 +86,10 @@ class LoadResources(LoadData):
                 continue
 
             emp.save()
+            if emp.mainPosition:
+                resource_obj.mainPosition = emp
+                resource_obj.save()
+
             orphans = orphans.exclude(id=emp.id)
 
         orphans.delete()

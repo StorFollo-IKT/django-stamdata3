@@ -21,6 +21,7 @@ class Resource(models.Model):
     lastName = models.CharField('etternavn', max_length=200)
     socialSecurityNumber = models.CharField('fødselsnummer', max_length=11)
     status = models.CharField(max_length=1)
+    mainPosition = models.OneToOneField('Employment', on_delete=models.SET_NULL, null=True, blank=True, related_name='resource2')
 
     def manages_list(self):
         users = []
