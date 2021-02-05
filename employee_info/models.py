@@ -1,4 +1,5 @@
 from django.db import models
+from datetime import date
 
 
 class Company(models.Model):
@@ -143,6 +144,10 @@ class Employment(models.Model):
 
     def __str__(self):
         return '%s: %s' % (self.organisation, self.resource)
+
+    def active(self):
+        today = date.today()
+        return self.dateFrom <= today <= self.dateTo
 
     class Meta:
         verbose_name = 'stillingsforhold'
