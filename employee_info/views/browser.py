@@ -12,7 +12,7 @@ def index(request):
                                                         'title': title})
 
 
-@permission_required('employee_info.view_employment')
+@permission_required('employee_info.view_employment', raise_exception=True)
 def resource(request):
     employee_num = request.GET.get('employee')
     if not employee_num:
@@ -48,7 +48,7 @@ def resource(request):
                    'companies': Company.objects.all()})
 
 
-@permission_required('employee_info.view_organisation')
+@permission_required('employee_info.view_organisation', raise_exception=True)
 def organisation(request):
     company = request.GET.get('company')
     organisation_num = request.GET.get('value')
@@ -58,14 +58,15 @@ def organisation(request):
                                                                      })
     elif not organisation_num:
         organisation_obj = Organisation.objects.filter(company__companyCode=company)
-        organisation_obj = organisation_obj.select_related('manager', 'parent')
+        organisation_obj = organisation_obj.select_related('manager', 'parent',
+                                                           'company')
 
         return render(request, 'employee_info/select_organisation.html',
                       {'title': 'Velg organisasjonsenhet',
                        'organisations': organisation_obj,
                        'company': company})
     try:
-        organisation_obj = Organisation.objects.select_related('manager', 'parent'). \
+        organisation_obj = Organisation.objects.select_related('manager', 'parent', 'company'). \
             prefetch_related('employments__resource'). \
             get(company__companyCode=company, orgId=organisation_num)
 
@@ -80,7 +81,7 @@ def organisation(request):
                            (company, organisation_num)})
 
 
-@permission_required('employee_info.view_costcenter')
+@permission_required('employee_info.view_costcenter', raise_exception=True)
 def cost_center(request):
     company = request.GET.get('company')
     value = request.GET.get('value')
