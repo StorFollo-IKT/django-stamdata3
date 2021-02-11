@@ -1,3 +1,4 @@
+import os
 from datetime import datetime
 
 from django.core.management.base import BaseCommand
@@ -22,6 +23,8 @@ class Command(BaseCommand):
 
         for company in companies:
             file = '/home/datagrunnlag/Stamdata3_FSI_%s.xml' % company
+            if not os.path.exists(file):
+                continue
 
             load = LoadResources(file, company)
             load.load()
