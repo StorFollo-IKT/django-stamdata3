@@ -29,5 +29,5 @@ setup(
         'Programming Language :: Python',
         'Programming Language :: Python :: 3.7',
         'Programming Language :: Python :: 3.8',
-    ], install_requires=['django>=2,<4', 'stamdata3>=1.0']
+    ], install_requires=['django>=2,<4', 'stamdata3>=1.0', 'requests']
 )
