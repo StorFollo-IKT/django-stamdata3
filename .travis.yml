@@ -3,8 +3,7 @@ matrix:
   include:
   - python: '3.7'
   - python: '3.8'
-    after_script:
-    - bash <(curl -s https://codecov.io/bash)
+  - python: '3.9'
 install:
 - pip install coverage
 - python setup.py install
@@ -22,3 +21,6 @@ deploy:
   on:
     python: '3.8'
     tags: true
+
+after_script:
+  - bash <(curl -s https://codecov.io/bash)
