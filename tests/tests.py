@@ -1,31 +1,24 @@
-import os
-
 from django.test import TestCase
 
-# Create your tests here.
-from employee_info.load_data.LoadOrganisations import LoadOrganisations
+from employee_info.models import Resource, Employment, Function
+from tests.test_data import TestData
 
-from employee_info.models import Resource, Employment
-from employee_info.management.commands.load_functions import Command
-
-from employee_info.load_data.load_resources import LoadResources
+load = TestData()
 
 
 class ResourceTestCase(TestCase):
     def setUp(self) -> None:
-        folder = os.path.dirname(__file__)
-        file = os.path.join(folder, 'test_data', 'stamdata_multi.xml')
+        load.load_test_data()
 
-        load_functions = Command()
-        load_functions.handle()
-
-        load_org = LoadOrganisations(file, 'AK')
-        load_org.load()
-
-        load = LoadResources(file, 'AK')
-        load.load()
+    def testLoadData(self):
+        function = Function.objects.get(value=120)
+        self.assertEqual('Administrasjon', function.description)
 
     def testMainPosition(self):
         resource = Resource.objects.get(resourceId=53453)
         main = resource.main_position()
         self.assertIsInstance(main, Employment)
+
+    def testManages(self):
+        resource = Resource.objects.get(resourceId=53453)
+        self.assertEqual(resource.manages_list(), [])
