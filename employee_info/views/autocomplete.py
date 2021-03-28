@@ -28,7 +28,7 @@ def __autocomplete(request, model: Type[Model], limit=1):
         return HttpResponseBadRequest('At least %d characters must be provided' % limit)
 
 
-@permission_required('employee_info.view_cost_center', raise_exception=True)
+@permission_required('employee_info.view_costcenter', raise_exception=True)
 def cost_center(request):
     return __autocomplete(request, CostCenter, 2)
 
@@ -38,6 +38,6 @@ def function(request):
     return __autocomplete(request, Function)
 
 
-@permission_required('employee_info.view_work_place', raise_exception=True)
+@permission_required('employee_info.view_workplace', raise_exception=True)
 def work_place(request):
     return __autocomplete(request, WorkPlace)
